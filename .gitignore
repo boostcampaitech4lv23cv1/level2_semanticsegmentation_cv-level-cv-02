@@ -1,0 +1,20 @@
+#no . files except .github, .gitignore
+.*
+!.github
+!.gitignore
+
+#ignore input/data
+input/data
+input/data/*
+
+input/code/__pycache__
+input/code/.ipynb_checkpoints
+input/code/submission
+<<<<<<< HEAD
+input/code/saved
+input/code/saved/*
+input/code/model_ckpt
+input/code/model_ckpt/*
+=======
+input/code/saved
+>>>>>>> 499d56b6d7300f41c087fd35ac135823d4063b57
