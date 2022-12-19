@@ -1,0 +1,13 @@
+#no . files except .github, .gitignore
+.*
+!.github
+!.gitignore
+
+#ignore input/data
+input/data
+input/data/*
+
+input/code/__pycache__
+input/code/.ipynb_checkpoints
+input/code/submission
+input/code/saved
