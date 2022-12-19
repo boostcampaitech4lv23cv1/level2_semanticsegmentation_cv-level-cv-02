@@ -1,11 +1,8 @@
 # # https://github.com/wkentaro/pytorch-fcn/blob/master/torchfcn/utils.py
 
 import numpy as np
-<<<<<<< HEAD
 from torch.optim.lr_scheduler import _LRScheduler
 import math
-=======
->>>>>>> 499d56b6d7300f41c087fd35ac135823d4063b57
 
 def _fast_hist(label_true, label_pred, n_class):
     mask = (label_true >= 0) & (label_true < n_class)
@@ -13,10 +10,6 @@ def _fast_hist(label_true, label_pred, n_class):
                         minlength=n_class ** 2).reshape(n_class, n_class)
     return hist
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 499d56b6d7300f41c087fd35ac135823d4063b57
 def label_accuracy_score(hist):
     """
     Returns accuracy score evaluation result.
@@ -38,10 +31,6 @@ def label_accuracy_score(hist):
     fwavacc = (freq[freq > 0] * iu[freq > 0]).sum()
     return acc, acc_cls, mean_iu, fwavacc, iu
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 499d56b6d7300f41c087fd35ac135823d4063b57
 def add_hist(hist, label_trues, label_preds, n_class):
     """
         stack hist(confusion matrix)
@@ -52,12 +41,6 @@ def add_hist(hist, label_trues, label_preds, n_class):
 
     return hist
 
-
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 499d56b6d7300f41c087fd35ac135823d4063b57
 def _fast_hist(label_true, label_pred, n_class):
     mask = (label_true >= 0) & (label_true < n_class)
     hist = np.bincount(
@@ -65,7 +48,6 @@ def _fast_hist(label_true, label_pred, n_class):
         label_pred[mask], minlength=n_class ** 2).reshape(n_class, n_class)
     return hist
 
-<<<<<<< HEAD
 class CosineAnnealingWarmUpRestarts(_LRScheduler):
     def __init__(self, optimizer, T_0, T_mult=1, eta_max=0.1, T_up=0, gamma=1., last_epoch=-1):
         if T_0 <= 0 or not isinstance(T_0, int):
@@ -120,28 +102,3 @@ class CosineAnnealingWarmUpRestarts(_LRScheduler):
         self.last_epoch = math.floor(epoch)
         for param_group, lr in zip(self.optimizer.param_groups, self.get_lr()):
             param_group['lr'] = lr
-=======
-
-# def label_accuracy_score(label_trues, label_preds, n_class):
-#     """Returns accuracy score evaluation result.
-#       - overall accuracy
-#       - mean accuracy
-#       - mean IU
-#       - fwavacc
-#     """
-#     hist = np.zeros((n_class, n_class))
-#     for lt, lp in zip(label_trues, label_preds):
-#         hist += _fast_hist(lt.flatten(), lp.flatten(), n_class)
-#     acc = np.diag(hist).sum() / hist.sum()
-#     with np.errstate(divide='ignore', invalid='ignore'):
-#         acc_cls = np.diag(hist) / hist.sum(axis=1)
-#     acc_cls = np.nanmean(acc_cls)
-#     with np.errstate(divide='ignore', invalid='ignore'):
-#         iu = np.diag(hist) / (
-#             hist.sum(axis=1) + hist.sum(axis=0) - np.diag(hist)
-#         )
-#     mean_iu = np.nanmean(iu)
-#     freq = hist.sum(axis=1) / hist.sum()
-#     fwavacc = (freq[freq > 0] * iu[freq > 0]).sum()
-#     return acc, acc_cls, mean_iu, fwavacc, iu
->>>>>>> 499d56b6d7300f41c087fd35ac135823d4063b57
