@@ -11,3 +11,7 @@ input/code/__pycache__
 input/code/.ipynb_checkpoints
 input/code/submission
 input/code/saved
+input/code/saved/*
+input/code/model_ckpt
+input/code/model_ckpt/*
+input/code/saved
