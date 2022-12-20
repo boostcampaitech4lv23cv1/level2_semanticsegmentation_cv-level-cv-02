@@ -17,3 +17,6 @@ input/code/model_ckpt/*
 input/code/saved
 
 mmsegmentation
+!mmsegmentation/tools/train_script.sh
+!mmsegmentation/configs/_seohyeon_
+!mmsegmentation/configs/_seohyeon_/*
