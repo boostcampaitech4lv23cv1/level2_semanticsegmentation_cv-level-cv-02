@@ -20,6 +20,9 @@ from base import CATEGORIES, DATASET_PATH, NUM_CLASSES
 from dataset import CustomDataset , collate_fn
 from augmentation import train_transform, val_transform, test_transform
 from utils import add_hist, label_accuracy_score, CosineAnnealingWarmUpRestarts
+from wandb_experiment import ExperimentWandb
+
+
 
 ## Fix seed
 def seed_everything(seed):
@@ -66,7 +69,14 @@ def train(model_dir, args):
     print("Fix seed")
     seed_everything(args.seed)
     
+    print("Initializing wandb...")
+    wandb = ExperimentWandb()
+    config_dict = vars(args)
+    wandb.set_hyperparams(config_dict)
+    wandb.config(vars(args))
+    
     best_loss = 9999999
+    best_mIoU = 0
     
     save_dir = increment_path(os.path.join(model_dir, args.name))
     os.makedirs(save_dir, exist_ok = True)
@@ -184,15 +194,26 @@ def train(model_dir, args):
                 )
                 pbar.update(1)
                 pbar.set_postfix(postfix_dict)
+                
+                #Train wandb logging part
+                wandb.log({"Train_loss" : loss.item(), "Train Acc" : acc, "Trian mIoU" : round(mIoU,4) })
+
                                 
             # validation 주기에 따른 loss 출력 및 best model 저장
             if (epoch + 1) % args.val_every == 0:
-                avrg_loss = validation(epoch + 1, model, val_loader, criterion, device)
-                if avrg_loss < best_loss:
+                avrg_loss, val_acc, val_mIoU, classwise_IoU = validation(epoch + 1, model, val_loader, criterion, device)
+                val_mIoU = round(val_mIoU,4)
+                
+                #Valid wandb logging part
+                wandb.log({"Val Loss" : avrg_loss , "Val mIoU" : round(val_acc, 4),
+                           "Val mIoU" : val_mIoU})
+                wandb.check_all_iou(classwise_IoU)
+                
+                if val_mIoU > best_mIoU:
                     print(f"Best performance at epoch: {epoch + 1}")
                     print(f"Save model in {save_dir}")
-                    print(f"Best loss: {best_loss} -> {avrg_loss}")
-                    best_loss = avrg_loss
+                    print(f"Best mIoU: {best_mIoU} -> {val_mIoU}")
+                    best_mIoU = val_mIoU
                     torch.save(model.state_dict(), f"{save_dir}/best.pth")
                     patience_check = 0
                 
@@ -261,7 +282,7 @@ def validation(epoch, model, data_loader, criterion, device):
             print(f'Validation #{epoch}  Average Loss: {round(avrg_loss.item(), 4)}, Accuracy : {round(acc, 4)}, \
                     mIoU: {round(mIoU, 4)}')
             print(f'IoU by class : {IoU_by_class}')
-    return avrg_loss
+    return avrg_loss, acc,  mIoU, IoU_by_class
 
 # 모델 저장 함수 정의
 val_every = 1
