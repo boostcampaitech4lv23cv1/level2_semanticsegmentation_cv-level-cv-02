@@ -15,3 +15,6 @@ input/code/saved/*
 input/code/model_ckpt
 input/code/model_ckpt/*
 input/code/saved
+
+#ignore 
+input/code/*.out
