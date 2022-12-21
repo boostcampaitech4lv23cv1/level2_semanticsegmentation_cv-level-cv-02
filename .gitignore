@@ -15,3 +15,14 @@ input/code/saved/*
 input/code/model_ckpt
 input/code/model_ckpt/*
 input/code/saved
+
+#ignore folder
+mission1/*
+mmsegmentation/*
+mmseg_format/*
+
+#ignore notebook
+*.ipynb
+
+#ignore png
+*.png
