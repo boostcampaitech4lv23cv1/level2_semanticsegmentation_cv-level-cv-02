@@ -10,8 +10,8 @@
 # val_debug : Train_loop를 생략하고, val_loop로만 디버깅하고 싶을 시 사용합니다.
 
 python train.py \
---epochs 30 \
---model "FCN_ResNet50" \
+--epochs 40 \
+--model "DeepLabV3_ResNet101" \
 --optimizer "AdamW"     \
 --scheduler "multi_sched" \
 --batch_size 4 \
