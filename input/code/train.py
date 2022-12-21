@@ -156,6 +156,7 @@ def train(model_dir, args):
         train_num_batches = math.ceil(len(train_dataset) / args.batch_size)
         with tqdm(total = train_num_batches) as pbar:
             for step, (images, masks, _) in enumerate(train_loader):
+                model.train()
                 if args.val_debug== "true" : 
                     print("You set to val_debug mode as True. This is to check only validation logic, ignoring all train loop.")
                     break 
@@ -168,6 +169,7 @@ def train(model_dir, args):
                 images, masks = images.to(device), masks.to(device)
                             
                 # inference
+                model.eval()
                 outputs = model(images)['out']
                 
                 # loss 계산 (cross entropy loss)
@@ -205,7 +207,7 @@ def train(model_dir, args):
                 val_mIoU = round(val_mIoU,4)
                 
                 #Valid wandb logging part
-                wandb.log({"Val Loss" : avrg_loss , "Val mIoU" : round(val_acc, 4),
+                wandb.log({"Val Loss" : avrg_loss , "Val acc" : round(val_acc, 4),
                            "Val mIoU" : val_mIoU})
                 wandb.check_all_iou(classwise_IoU)
                 

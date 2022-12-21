@@ -1,5 +1,5 @@
 #no . files except .github, .gitignore
-*
+.*
 !.github
 !.gitignore
 !input
@@ -15,6 +15,7 @@ input/code/saved/*
 input/code/model_ckpt
 input/code/model_ckpt/*
 input/code/saved
+input/code/wandb
 
 #ignore 
 input/code/*.out
@@ -28,3 +29,15 @@ mmseg_format/*
 
 #ignore png
 *.png
+
+#ignore all MaskFormer 
+MaskFormer
+
+
+#ignore except 
+!input/utils
+
+#ignore all except config folder 
+!mmsegmentation/tools/submission.py
+!mmsegmentation/train_script.sh
+!mmsegmentation/inference_script.sh
