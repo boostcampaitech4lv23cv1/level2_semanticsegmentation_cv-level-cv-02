@@ -1,8 +1,8 @@
 #no . files except .github, .gitignore
-.*
+*
 !.github
 !.gitignore
-
+!input
 #ignore input/data
 input/data
 input/data/*
