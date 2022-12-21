@@ -18,3 +18,13 @@ input/code/saved
 
 #ignore 
 input/code/*.out
+#ignore folder
+mission1/*
+mmsegmentation/*
+mmseg_format/*
+
+#ignore notebook
+*.ipynb
+
+#ignore png
+*.png
