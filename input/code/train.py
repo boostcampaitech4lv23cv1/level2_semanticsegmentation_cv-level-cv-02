@@ -132,18 +132,18 @@ def train(model_dir, args):
     #(TODO) scheduler는 알아서 지정
     
     print("Scheduler 사용 :", args.scheduler)
-    
-    if args.scheduler == "false":
-        print("scheduler를 선택하지 않으셨습니다.")
-    
-    elif args.scheduler == "multi_sched":
+      
+    if args.scheduler == "multi_sched":
         scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, milestones=[args.epochs // 2], gamma=0.1)
     
-    elif args.scheduler == "cosan_sched":
+    elif args.scheduler == "cos_warmup":
         scheduler = CosineAnnealingWarmUpRestarts(optimizer, T_0 = 10, T_mult= 2 , eta_max =0.05, T_up = 2, gamma = 0.5)
 
-    else: 
-        scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, milestones=[args.epochs // 2], gamma=0.1)
+    elif args.scheduler == "cos_lr": 
+        scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=100, eta_min=0.001)
+
+    else:
+        print("scheduler를 선택하지 않으셨습니다.")
 
 
     #Early stopping을 위한 patience 지정
