@@ -43,8 +43,8 @@ MaskFormer
 !mmsegmentation/inference_script.sh
 
 #ignore data
-label_vizualizer/data
-label_vizualizer/data/*
-!label_vizualizer/vizualizer.ipynb
+mask_visualizer/data
+mask_visualizer/data/*
+!mask_visualizer/visualizer.ipynb
 
 SenFormer

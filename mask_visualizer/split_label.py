@@ -9,7 +9,7 @@ with open("/opt/ml/input/data/train_all.json", "r") as f:
     data = json.load(f)
 
 #data를 저장할 폴더 생성
-dir_path = f"/opt/ml/label_vizualizer/data"
+dir_path = f"/opt/ml/mask_visualizer/data"
 if not os.path.isdir(dir_path) :
     os.mkdir(dir_path)
 
