@@ -41,3 +41,10 @@ MaskFormer
 !mmsegmentation/tools/submission.py
 !mmsegmentation/train_script.sh
 !mmsegmentation/inference_script.sh
+
+#ignore data
+label_vizualizer/data
+label_vizualizer/data/*
+!label_vizualizer/vizualizer.ipynb
+
+SenFormer
